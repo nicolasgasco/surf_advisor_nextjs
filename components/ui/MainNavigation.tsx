@@ -5,10 +5,10 @@ const MainNavigation: React.FC = () => {
     <nav>
       <ul>
         <li>
-          <Link href="/search">Search</Link>
+          <Link href="/spots">Spots</Link>
         </li>
         <li>
-          <Link href="/about">About</Link>
+          <Link href="/about-me">About me</Link>
         </li>
       </ul>
     </nav>

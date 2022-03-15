@@ -9,9 +9,9 @@ interface Params extends ParsedUrlQuery {
 
 const HomePage: NextPage = () => {
   return (
-    <>
+    <main>
       <h1>This is the main landing page</h1>
-    </>
+    </main>
   );
 };
 
