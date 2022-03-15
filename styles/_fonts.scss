@@ -1,4 +1,11 @@
+// Lato
 $lato-font-path: "../public/fonts/lato";
+
+@font-face {
+  src: url("#{$lato-font-path}/Lato-Thin.ttf") format("ttf");
+  font-family: "Lato";
+  font-weight: 100;
+}
 
 @font-face {
   src: url("#{$lato-font-path}/Lato-Light.ttf") format("ttf");
@@ -17,3 +24,12 @@ $lato-font-path: "../public/fonts/lato";
   font-family: "Lato";
   font-weight: 700;
 }
+
+// Unifraktur
+// $unifraktur-font-path: "../public/fonts/unifraktur";
+
+// @font-face {
+//   src: url("#{$unifraktur-font-path}/UnifrakturCook-Bold.ttf") format("ttf");
+//   font-family: "UnifrakturCook";
+//   font-weight: 700;
+// }
