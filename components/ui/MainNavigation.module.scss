@@ -1,0 +1,11 @@
+.main-nav {
+  ul {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+
+    > :not(:last-child) {
+      margin-right: 25px;
+    }
+  }
+}

@@ -1,0 +1,33 @@
+.main-landing-hero-container {
+  height: 600px;
+
+  margin-top: 170px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+
+  position: relative;
+  h2 {
+    font-size: 100px;
+    font-weight: 100;
+    font-stretch: 100%;
+    line-height: 100px;
+    letter-spacing: 4px;
+
+    position: absolute;
+    left: 30px;
+    top: 0;
+
+    span {
+      font-size: 130px;
+    }
+  }
+  img {
+    height: 430px;
+    width: 100vw;
+
+    object-fit: cover;
+    object-position: 100% 15%;
+  }
+}
