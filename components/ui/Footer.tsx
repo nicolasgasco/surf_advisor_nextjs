@@ -11,7 +11,8 @@ const Footer: React.FC = () => {
         Made with ♡ by Nicolas Gasco
       </a>
       <span>
-        Photo by{" "}
+        Style inspired by{" "}
+        <a href="https://jobs.dorfjungs.com/">dorfjungs.com</a>, photo by{" "}
         <a href="https://unsplash.com/@alwig64?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">
           Alex Wigan
         </a>{" "}
