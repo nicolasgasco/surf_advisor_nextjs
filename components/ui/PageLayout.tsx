@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Footer from "./Footer";
 import MainNavigation from "./MainNavigation";
 
@@ -7,7 +8,9 @@ const PageLayout: React.FC = (props) => {
   return (
     <>
       <header className={styles.header}>
-        <h1>SurfAdvisor</h1>
+        <Link href="/">
+          <h1>SurfAdvisor</h1>
+        </Link>
         <MainNavigation />
       </header>
       {props.children}
