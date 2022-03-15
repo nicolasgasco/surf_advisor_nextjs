@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import { ParsedUrlQuery } from "querystring";
+import MainLandingHero from "../components/main-landing/MainLandingHero";
 
 import styles from "../styles/Home.module.scss";
 
@@ -10,7 +11,7 @@ interface Params extends ParsedUrlQuery {
 const HomePage: NextPage = () => {
   return (
     <main>
-      <h1>This is the main landing page</h1>
+      <MainLandingHero />
     </main>
   );
 };
