@@ -8,7 +8,8 @@ const MainLandingHero: React.FC = () => {
         <br />
         by surfers
       </h2>
-      <img src="/img/landing-bg-desktop.jpg" />
+      <img src="/img/landing_bg_desktop_overlay.png" alt="" />
+      <img src="/img/landing_bg_desktop.jpg" alt="" />
     </div>
   );
 };

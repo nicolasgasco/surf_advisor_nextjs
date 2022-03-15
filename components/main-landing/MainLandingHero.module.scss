@@ -24,7 +24,7 @@
     }
   }
   img {
-    height: 430px;
+    height: 550px;
     width: 100vw;
 
     object-fit: cover;
@@ -34,5 +34,9 @@
     left: 50%;
     transform: translateX(-50%);
     z-index: -1;
+
+    &:first-of-type {
+        z-index: 10;
+    }
   }
 }
