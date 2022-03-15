@@ -1,7 +1,22 @@
 .main-landing-selectors-container {
   position: relative;
-  label {
-    visibility: hidden;
-    position: absolute;
+
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  background: url("/svg/waves.svg") no-repeat center center;
+
+  h3 {
+    writing-mode: vertical-rl;
+    transform: rotate(-180deg);
+
+    font-size: 120px;
+  }
+  div {
+    label {
+      visibility: hidden;
+      position: absolute;
+    }
   }
 }
