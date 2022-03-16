@@ -1,4 +1,4 @@
-import type { NextPage } from "next";
+import type { GetStaticProps, NextPage } from "next";
 import { ParsedUrlQuery } from "querystring";
 import MainLandingHero from "../components/main-landing/MainLandingHero";
 import MainLandingSelectors from "../components/main-landing/MainLandingSelectors";
@@ -9,13 +9,22 @@ interface Params extends ParsedUrlQuery {
   slug: string;
 }
 
-const HomePage: NextPage = () => {
+const HomePage: NextPage<{ countries: string[] }> = (props) => {
   return (
     <main>
       <MainLandingHero />
-      <MainLandingSelectors />
+      <MainLandingSelectors countries={props.countries} />
     </main>
   );
 };
+
+export async function getStaticProps() {
+  return {
+    props: {
+      countries: ["Spain", "Italy", "Germany"],
+    },
+    revalidate: 30,
+  };
+}
 
 export default HomePage;
