@@ -2,6 +2,7 @@ import { MongoClient } from "mongodb";
 import type { NextPage, GetStaticProps, GetStaticPaths } from "next";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import SpotData from "../../interfaces/spot-data-interface";
 
 const SurfSpotPage: NextPage = () => {
   const router = useRouter();
@@ -78,7 +79,17 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   const spotsCollection = db.collection(`${process.env.DBCOLLECTION}`);
 
-  const spotData = await spotsCollection.find({ slug: spotSlug }).toArray();
+  const rawSpotData = await spotsCollection.find({ slug: spotSlug }).toArray();
+
+  const spotData: SpotData[] = rawSpotData.map((spot) => {
+    return {
+      id: spot._id.toString(),
+      name: spot.name,
+      country: spot.country,
+      region: spot.region,
+      slug: spot.slug,
+    };
+  });
 
   client.close();
 
