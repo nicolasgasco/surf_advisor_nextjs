@@ -1,3 +1,4 @@
+import { MongoClient } from "mongodb";
 import type { NextPage, GetStaticProps, GetStaticPaths } from "next";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
@@ -19,7 +20,6 @@ const SurfSpotPage: NextPage = () => {
           <div className="external-cont">
             <iframe
               className="surf-fc-i"
-              allowTransparency={true}
               src="//www.surf-forecast.com/breaks/Playade-Ereaga/forecasts/widget/a"
               scrolling="no"
               frameBorder={0}
@@ -44,8 +44,24 @@ const SurfSpotPage: NextPage = () => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const arr = ["1", "2"];
-  const paths = arr.map((slug) => {
+  const client = await MongoClient.connect(
+    `mongodb+srv://${process.env.DBUSER}:${process.env.DBPASSWORD}@sandbox.1ybr6.mongodb.net/${process.env.DBNAME}?retryWrites=true&w=majority`
+  );
+  const db = client.db();
+
+  const spotsCollection = db.collection(`${process.env.DBCOLLECTION}`);
+
+  const allSpotsIds = await await spotsCollection
+    .find({})
+    .project({ slug: 1, _id: 0 })
+    .map((spotData) => spotData.slug.toLowerCase())
+    .toArray();
+
+  console.log(allSpotsIds);
+
+  client.close();
+
+  const paths = allSpotsIds.map((slug) => {
     return {
       params: { spotId: slug },
     };

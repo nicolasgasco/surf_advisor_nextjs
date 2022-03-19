@@ -13,10 +13,13 @@
 
     font-size: 120px;
   }
-  div {
+  .country-region-spot-selector {
     label {
       visibility: hidden;
       position: absolute;
+    }
+    input[type="text"] {
+      color: black;
     }
   }
 }
