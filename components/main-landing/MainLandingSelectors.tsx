@@ -55,7 +55,7 @@ const MainLandingSelectors: React.FC<{
   const [selectedRegion, setSelectRegion] = useState(
     getRegionsOfCountry(selectedCountry)[0].region.toLowerCase()
   );
-  const [selectedSpot, setSelectedSpot] = useState(getSpotsOfRegion(selectedRegion)[0].slug.toLowerCase());
+  const [selectedSpot, setSelectedSpot] = useState(getSpotsOfRegion(selectedRegion)[0].slug);
   const router = useRouter();
 
   const onChangeCountryHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -119,7 +119,7 @@ const MainLandingSelectors: React.FC<{
             return (
               <option
                 key={spotData.id}
-                value={spotData.region.toLocaleLowerCase().replaceAll(" ", "_")}
+                value={spotData.region.toLowerCase().replaceAll(" ", "_")}
               >
                 {spotData.region}
               </option>
@@ -139,7 +139,7 @@ const MainLandingSelectors: React.FC<{
             return (
               <option
                 key={spotData.slug}
-                value={spotData.slug.toLocaleLowerCase()}
+                value={spotData.slug}
               >
                 {spotData.name}
               </option>

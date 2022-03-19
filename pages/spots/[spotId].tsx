@@ -2,6 +2,7 @@ import { MongoClient } from "mongodb";
 import type { NextPage, GetStaticProps, GetStaticPaths } from "next";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import useCollection from "../../hooks/use-db-collection";
 
 const SurfSpotPage: NextPage = () => {
   const router = useRouter();
@@ -44,20 +45,15 @@ const SurfSpotPage: NextPage = () => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const client = await MongoClient.connect(
-    `mongodb+srv://${process.env.DBUSER}:${process.env.DBPASSWORD}@sandbox.1ybr6.mongodb.net/${process.env.DBNAME}?retryWrites=true&w=majority`
+  const [client, spotsCollection = collection] = await useCollection(
+    process.env.DBCOLLECTION
   );
-  const db = client.db();
 
-  const spotsCollection = db.collection(`${process.env.DBCOLLECTION}`);
-
-  const allSpotsIds = await await spotsCollection
+  const allSpotsIds = await spotsCollection
     .find({})
     .project({ slug: 1, _id: 0 })
-    .map((spotData) => spotData.slug.toLowerCase())
+    .map((spotData) => spotData.slug)
     .toArray();
-
-  console.log(allSpotsIds);
 
   client.close();
 
@@ -69,7 +65,20 @@ export const getStaticPaths: GetStaticPaths = async () => {
   return { paths, fallback: false };
 };
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async (context) => {
+  const spotSlug = context.params?.spotId;
+
+  const client = await MongoClient.connect(
+    `mongodb+srv://${process.env.DBUSER}:${process.env.DBPASSWORD}@sandbox.1ybr6.mongodb.net/${process.env.DBNAME}?retryWrites=true&w=majority`
+  );
+  const db = client.db();
+
+  const spotsCollection = db.collection(`${process.env.DBCOLLECTION}`);
+
+  const spotData = await spotsCollection.find({ slug: spotSlug }).toArray();
+
+  client.close();
+
   return {
     props: {},
     revalidate: 600,
