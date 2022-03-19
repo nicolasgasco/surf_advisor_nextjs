@@ -45,7 +45,7 @@ const SurfSpotPage: NextPage = () => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const [client, spotsCollection = collection] = await useCollection(
+  const [client, spotsCollection] = await useCollection(
     process.env.DBCOLLECTION
   );
 
@@ -66,9 +66,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const spotSlug = context.params?.spotId;
+  const spotSlug = context.params!.spotId;
 
-  const [client, spotsCollection = collection] = await useCollection(
+  const [client, spotsCollection] = await useCollection(
     process.env.DBCOLLECTION
   );
 
@@ -77,7 +77,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   client.close();
 
   return {
-    props: {},
+    props: { spotData },
     revalidate: 600,
   };
 };

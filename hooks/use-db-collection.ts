@@ -1,6 +1,8 @@
 import { Collection, MongoClient } from "mongodb";
 
-const useCollection = async (collectionName: string | undefined) => {
+const useCollection = async (
+  collectionName: string | undefined
+): Promise<[MongoClient, Collection]> => {
   const client = await MongoClient.connect(
     `mongodb+srv://${process.env.DBUSER}:${process.env.DBPASSWORD}@sandbox.1ybr6.mongodb.net/${process.env.DBNAME}?retryWrites=true&w=majority`
   );

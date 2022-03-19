@@ -5,6 +5,7 @@ import { ParsedUrlQuery } from "querystring";
 import MainLandingHero from "../components/main-landing/MainLandingHero";
 import MainLandingSelectors from "../components/main-landing/MainLandingSelectors";
 import useCollection from "../hooks/use-db-collection";
+import SpotData from "../interfaces/spot-data-interface";
 
 import styles from "../styles/Home.module.scss";
 
@@ -12,7 +13,11 @@ interface Params extends ParsedUrlQuery {
   slug: string;
 }
 
-const HomePage: NextPage<{ countries: string[] }> = (props) => {
+const HomePage: NextPage<{
+  countries: string[];
+  regions: string[];
+  spots: SpotData[];
+}> = (props) => {
   return (
     <main>
       <MainLandingHero />
@@ -26,18 +31,12 @@ const HomePage: NextPage<{ countries: string[] }> = (props) => {
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const [client, spotsCollection = collection] = await useCollection(
+  const [client, spotsCollection] = await useCollection(
     process.env.DBCOLLECTION
   );
 
-  const allSpots = (await spotsCollection.find({}).toArray()).map(
-    (spotData: {
-      name: string;
-      slug: string;
-      country: string;
-      region: string;
-      _id: ObjectID;
-    }) => {
+  const allSpots: SpotData[] = (await spotsCollection.find({}).toArray()).map(
+    (spotData) => {
       return {
         name: spotData.name,
         slug: spotData.slug,
