@@ -1,3 +1,4 @@
+import Image from "next/image";
 import styles from "./MainLandingHero.module.scss";
 
 const MainLandingHero: React.FC = () => {
@@ -8,8 +9,8 @@ const MainLandingHero: React.FC = () => {
         <br />
         by surfers
       </h2>
-      <img src="/img/landing_bg_desktop_overlay.png" alt="" />
-      <img src="/img/landing_bg_desktop.jpg" alt="" />
+      <Image src="/img/landing_bg_desktop_overlay.png" layout="fill" alt="" />
+      <Image src="/img/landing_bg_desktop.jpg" layout="fill" alt="" />
     </div>
   );
 };
