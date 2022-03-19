@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./MainLandingSelectors.module.scss";
 
 const MainLandingSelectors: React.FC<{
@@ -13,13 +13,58 @@ const MainLandingSelectors: React.FC<{
     id: string;
   }[];
 }> = (props) => {
+  const getRegionsOfCountry = (country: string) => {
+    return (
+      props.spots
+        // Filtering per country
+        .filter((spotData) => {
+          return (
+            spotData.country.toLowerCase().replaceAll(" ", "_") ===
+            country.toLowerCase()
+          );
+        })
+        // Sorting alphabetically
+        .sort((a, b) => {
+          return a.region < b.region ? -1 : 1;
+        })
+        // Removing duplicates
+        .filter((spotData, index, spotsArray) => {
+          if (index === 0) {
+            return true;
+          } else {
+            return spotData.region !== spotsArray[index - 1].region;
+          }
+        })
+    );
+  };
+
+  const getSpotsOfRegion = (region: string) => {
+    return props.spots
+      .filter((spotData) => {
+        return (
+          spotData.region.toLowerCase().replaceAll(" ", "_") ===
+          region.toLowerCase()
+        );
+      })
+      .sort((a, b) => {
+        return a.name < b.name ? -1 : 1;
+      });
+  };
+
   const [selectedCountry, setSelectedCountry] = useState(props.countries[0]);
-  const [selectedRegion, setSelectRegion] = useState(props.regions[0]);
-  const [selectedSpot, setSelectedSpot] = useState("");
+  const [selectedRegion, setSelectRegion] = useState(
+    getRegionsOfCountry(selectedCountry)[0].region.toLowerCase()
+  );
+  const [selectedSpot, setSelectedSpot] = useState(getSpotsOfRegion(selectedRegion)[0].slug.toLowerCase());
   const router = useRouter();
 
   const onChangeCountryHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedCountry(e.target.value);
+    const firstRegion = getRegionsOfCountry(
+      e.target.value
+    )[0].region.toLowerCase();
+    setSelectRegion(firstRegion);
+    setSelectedSpot(getSpotsOfRegion(firstRegion)[0].slug.toLowerCase());
   };
 
   const onChangeRegionHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -68,40 +113,18 @@ const MainLandingSelectors: React.FC<{
           id="region"
           value={selectedRegion}
           onChange={onChangeRegionHandler}
+          disabled={selectedCountry === "country"}
         >
-          {props.spots
-            // Filtering per country
-            .filter((spotData) => {
-              return (
-                spotData.country.toLowerCase().replaceAll(" ", "_") ===
-                selectedCountry.toLowerCase()
-              );
-            })
-            // Sorting alphabetically
-            .sort((a, b) => {
-              return a.region < b.region ? -1 : 1;
-            })
-            // Removing duplicates
-            .filter((spotData, index, spotsArray) => {
-              if (index === 0) {
-                return true;
-              } else {
-                return spotData.region !== spotsArray[index - 1].region;
-              }
-            })
-            .map((spotData) => {
-              console.log(spotData);
-              return (
-                <option
-                  key={spotData.id}
-                  value={spotData.region
-                    .toLocaleLowerCase()
-                    .replaceAll(" ", "_")}
-                >
-                  {spotData.region}
-                </option>
-              );
-            })}
+          {getRegionsOfCountry(selectedCountry).map((spotData) => {
+            return (
+              <option
+                key={spotData.id}
+                value={spotData.region.toLocaleLowerCase().replaceAll(" ", "_")}
+              >
+                {spotData.region}
+              </option>
+            );
+          })}
         </select>
         {/* Spot */}
         <label htmlFor="spot">Spot:</label>
@@ -110,27 +133,18 @@ const MainLandingSelectors: React.FC<{
           id="spot"
           value={selectedSpot}
           onChange={onChangeSpotHandler}
+          disabled={selectedRegion === "region"}
         >
-          {props.spots
-            .filter((spotData) => {
-              return (
-                spotData.region.toLowerCase().replaceAll(" ", "_") ===
-                selectedRegion.toLowerCase()
-              );
-            })
-            .sort((a, b) => {
-              return a.name < b.name ? -1 : 1;
-            })
-            .map((spotData) => {
-              return (
-                <option
-                  key={spotData.slug}
-                  value={spotData.slug.toLocaleLowerCase()}
-                >
-                  {spotData.name}
-                </option>
-              );
-            })}
+          {getSpotsOfRegion(selectedRegion).map((spotData) => {
+            return (
+              <option
+                key={spotData.slug}
+                value={spotData.slug.toLocaleLowerCase()}
+              >
+                {spotData.name}
+              </option>
+            );
+          })}
         </select>
         {/* Submit button */}
         <button type="submit">See data</button>
