@@ -4,7 +4,6 @@ import type { GetStaticProps, NextPage } from "next";
 import { ParsedUrlQuery } from "querystring";
 import MainLandingHero from "../components/main-landing/MainLandingHero";
 import MainLandingSelectors from "../components/main-landing/MainLandingSelectors";
-import useCollection from "../hooks/use-db-collection";
 import SpotData from "../interfaces/spot-data-interface";
 
 import styles from "../styles/Home.module.scss";
@@ -31,9 +30,12 @@ const HomePage: NextPage<{
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const [client, spotsCollection] = await useCollection(
-    process.env.DBCOLLECTION
+  const client = await MongoClient.connect(
+    `mongodb+srv://${process.env.DBUSER}:${process.env.DBPASSWORD}@sandbox.1ybr6.mongodb.net/${process.env.DBNAME}?retryWrites=true&w=majority`
   );
+  const db = client.db();
+
+  const spotsCollection = db.collection(`${process.env.DBCOLLECTION}`);
 
   const allSpots: SpotData[] = (await spotsCollection.find({}).toArray()).map(
     (spotData) => {
