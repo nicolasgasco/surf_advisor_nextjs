@@ -8,9 +8,7 @@ import SpotData from "../interfaces/spot-data-interface";
 
 import styles from "../styles/Home.module.scss";
 
-interface Params extends ParsedUrlQuery {
-  slug: string;
-}
+
 
 const HomePage: NextPage<{
   countries: string[];

@@ -82,7 +82,7 @@ const MainLandingSelectors: React.FC<{
 
   return (
     <div className={styles["main-landing-selectors-container"]}>
-      <h3>Select a spot</h3>
+      <h3>Find spot</h3>
       <form
         className={styles["country-region-spot-selector"]}
         onSubmit={spotSelectorSubmitHandler}

@@ -2,44 +2,16 @@ import { MongoClient } from "mongodb";
 import type { NextPage, GetStaticProps, GetStaticPaths } from "next";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import SurfForecastTable from "../../components/spot-page/surfForecast";
 import SpotData from "../../interfaces/spot-data-interface";
 
-const SurfSpotPage: NextPage = () => {
+const SurfSpotPage: NextPage<{ spotData: SpotData }> = (props) => {
   const router = useRouter();
 
   return (
     <>
-      This is the page for spot {router.query.spotId}
-      <link
-        href="//www.surf-forecast.com/stylesheets/widget.css"
-        media="screen"
-        rel="stylesheet"
-        type="text/css"
-      />
-      <div className="wf-width-cont surf-fc-widget">
-        <div className="widget-container">
-          <div className="external-cont">
-            <iframe
-              className="surf-fc-i"
-              src="//www.surf-forecast.com/breaks/Playade-Ereaga/forecasts/widget/a"
-              scrolling="no"
-              frameBorder={0}
-              marginWidth={0}
-              marginHeight={0}
-            ></iframe>
-            <div className="footer">
-              <a className="logo" href="//www.surf-forecast.com/">
-                <img
-                  src="//www.surf-forecast.com/images/widget.png"
-                  alt="Widget"
-                  width="1"
-                  height="1"
-                />
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
+      <h1>{props.spotData.name}</h1>
+      <SurfForecastTable spotSlug={props.spotData.slug} />
     </>
   );
 };
@@ -81,7 +53,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   const rawSpotData = await spotsCollection.find({ slug: spotSlug }).toArray();
 
-  const spotData: SpotData[] = rawSpotData.map((spot) => {
+  const spotData: SpotData = rawSpotData.map((spot) => {
     return {
       id: spot._id.toString(),
       name: spot.name,
@@ -89,7 +61,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
       region: spot.region,
       slug: spot.slug,
     };
-  });
+  })[0];
 
   client.close();
 
