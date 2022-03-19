@@ -68,12 +68,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async (context) => {
   const spotSlug = context.params?.spotId;
 
-  const client = await MongoClient.connect(
-    `mongodb+srv://${process.env.DBUSER}:${process.env.DBPASSWORD}@sandbox.1ybr6.mongodb.net/${process.env.DBNAME}?retryWrites=true&w=majority`
+  const [client, spotsCollection = collection] = await useCollection(
+    process.env.DBCOLLECTION
   );
-  const db = client.db();
-
-  const spotsCollection = db.collection(`${process.env.DBCOLLECTION}`);
 
   const spotData = await spotsCollection.find({ slug: spotSlug }).toArray();
 
