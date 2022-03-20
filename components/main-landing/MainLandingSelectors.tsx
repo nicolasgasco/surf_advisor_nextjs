@@ -1,8 +1,8 @@
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./MainLandingSelectors.module.scss";
 import SpotData from "../../interfaces/spot-data-interface";
-import SelectInput from "../lib/selectInput";
+import SelectInput from "../lib/SelectInput";
 
 // Given a specific country, get all regions for that country
 const getRegionsOfCountry = (spots: SpotData[], country: string) => {
@@ -58,7 +58,7 @@ const MainLandingSelectors: React.FC<{
     getSpotsOfRegion(props.spots, selectedRegion)[0].slug
   );
 
-  useState(() => {
+  useEffect(() => {
     setSelectedCountry("spain");
     setSelectRegion("euskadi");
     setSelectedSpot(getSpotsOfRegion(props.spots, selectedRegion)[0].slug);
@@ -124,7 +124,7 @@ const MainLandingSelectors: React.FC<{
             (spotData) => {
               return (
                 <option
-                  key={spotData.id}
+                  key={spotData.region.toLowerCase().replaceAll(" ", "_")}
                   value={spotData.region.toLowerCase().replaceAll(" ", "_")}
                 >
                   {spotData.region}
