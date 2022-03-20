@@ -2,7 +2,7 @@
 Simple front where you can quickly see relevant information on specific surfing spot. Data is provided by external API.
 
 ## Stack
-- Front end: React
+- Front end: React, TypeScript
 - Styles: SASS
 - Back end: Nextjs
 - Deployment: ESLint, env variables to hide DB credentials
