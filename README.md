@@ -5,7 +5,7 @@ Simple front where you can quickly see relevant information on specific surfing 
 - Front end: React
 - Styles: SASS
 - Back end: Nextjs
-- Deployment: ESLint
+- Deployment: ESLint, env variables to hide DB credentials
 
 ## Features
 - Responsive layout 
