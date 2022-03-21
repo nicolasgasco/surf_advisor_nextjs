@@ -11,6 +11,7 @@ const SurfSpotPage: NextPage<{ spotData: SpotData }> = (props) => {
   return (
     <>
       <h1>{props.spotData.name}</h1>
+      <h2>Forecast</h2>
       <SurfForecastTable spotSlug={props.spotData.slug} />
     </>
   );
@@ -23,7 +24,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const db = client.db();
 
   const spotsCollection = db.collection(`${process.env.DBCOLLECTION}`);
-  const allSpotsIds = await spotsCollection
+  const allSpotsSlugs = await spotsCollection
     .find({})
     .project({ slug: 1, _id: 0 })
     .map((spotData) => spotData.slug)
@@ -31,7 +32,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   client.close();
 
-  const paths: { params: { spotId: string } }[] = allSpotsIds.map(
+  const paths: { params: { spotId: string } }[] = allSpotsSlugs.map(
     (slug: string) => {
       return {
         params: { spotId: slug },
@@ -67,7 +68,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   return {
     props: { spotData },
-    revalidate: 600,
+    revalidate: 1000,
   };
 };
 

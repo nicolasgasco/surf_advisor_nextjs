@@ -71,9 +71,7 @@ const MainLandingSelectors: React.FC<{
       e.target.value
     )[0].region.toLowerCase();
     setSelectRegion(firstRegion);
-    setSelectedSpot(
-      getSpotsOfRegion(props.spots, firstRegion)[0].slug.toLowerCase()
-    );
+    setSelectedSpot(getSpotsOfRegion(props.spots, firstRegion)[0].slug);
   };
 
   const onChangeRegionHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {

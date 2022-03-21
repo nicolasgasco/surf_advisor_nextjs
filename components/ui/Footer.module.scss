@@ -1,18 +1,22 @@
+@import "../../styles/mixins";
+
 .footer {
   margin-top: auto;
   display: block;
 
   padding: 20px 30px;
+  padding-top: 60px;
 
   display: flex;
   justify-content: space-between;
 
-  a {
+  small {
     font-size: 14px;
   }
 
-  span,
-  span > a {
+  small,
+  small > a {
     font-size: 10px;
   }
+  @include link-hover-effect(1px);
 }

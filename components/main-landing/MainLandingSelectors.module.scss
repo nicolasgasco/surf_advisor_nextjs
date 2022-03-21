@@ -1,9 +1,11 @@
+@import "../../styles/colors";
+
 .main-landing-selectors-container {
   position: relative;
 
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
+  align-items: center;
 
   background: url("/svg/waves.svg") no-repeat center center;
 
@@ -11,17 +13,48 @@
     writing-mode: vertical-rl;
     transform: rotate(-180deg);
 
+    white-space: nowrap;
+
     font-size: 120px;
+    margin-top: 30px;
   }
-  .country-region-spot-selector {
+  form.country-region-spot-selector {
+    border: 1px $color-white solid;
+    border-radius: 10px;
+    height: 50px;
+
     display: flex;
+    align-items: center;
+
+    margin: 0 auto;
+
+    > * {
+      height: 100%;
+      width: 120px;
+      select {
+        background-color: transparent;
+
+        padding: 10px 20px;
+        height: 100%;
+        width: 100%;
+
+        option {
+          background-color: $color-black;
+        }
+      }
+    }
+    > button {
+      background-color: $color-white;
+      border-radius: 0 10px 10px 0;
+      color: $color-black;
+
+      font-family: "UnifrakturCook", cursive;
+      font-size: 25px;
+    }
     div {
       label {
         visibility: hidden;
         position: absolute;
-      }
-      input[type="text"] {
-        color: black;
       }
     }
   }
