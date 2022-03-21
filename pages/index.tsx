@@ -1,6 +1,7 @@
 import { ObjectID } from "bson";
 import { MongoClient } from "mongodb";
 import type { GetStaticProps, NextPage } from "next";
+import Head from "next/head";
 import { ParsedUrlQuery } from "querystring";
 import MainLandingHero from "../components/main-landing/MainLandingHero";
 import MainLandingSelectors from "../components/main-landing/MainLandingSelectors";
@@ -8,22 +9,26 @@ import SpotData from "../interfaces/spot-data-interface";
 
 import styles from "../styles/Home.module.scss";
 
-
-
 const HomePage: NextPage<{
   countries: string[];
   regions: string[];
   spots: SpotData[];
 }> = (props) => {
   return (
-    <main>
-      <MainLandingHero />
-      <MainLandingSelectors
-        countries={props.countries}
-        regions={props.regions}
-        spots={props.spots}
-      />
-    </main>
+    <>
+      <Head>
+        <title>SurfAdvisor</title>
+        <meta name="description" content="Surf info - For surfers by surfers" />
+      </Head>
+      <main>
+        <MainLandingHero />
+        <MainLandingSelectors
+          countries={props.countries}
+          regions={props.regions}
+          spots={props.spots}
+        />
+      </main>
+    </>
   );
 };
 

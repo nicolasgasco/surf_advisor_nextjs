@@ -1,5 +1,6 @@
 import { MongoClient } from "mongodb";
 import type { NextPage, GetStaticProps, GetStaticPaths } from "next";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import SurfForecastTable from "../../components/spot-page/surfForecast";
@@ -10,6 +11,9 @@ const SurfSpotPage: NextPage<{ spotData: SpotData }> = (props) => {
 
   return (
     <>
+      <Head>
+        <title>{props.spotData.name} - Spot info</title>
+      </Head>
       <h1>{props.spotData.name}</h1>
       <h2>Forecast</h2>
       <SurfForecastTable spotSlug={props.spotData.slug} />
