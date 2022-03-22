@@ -13,6 +13,10 @@ const SurfSpotPage: NextPage<{ spotData: SpotData }> = (props) => {
     <>
       <Head>
         <title>{props.spotData.name} - Spot info</title>
+        <meta
+          name="description"
+          content={`Forecast and webcam of ${props.spotData.name}, ${props.spotData.region}`}
+        />
       </Head>
       <h1>{props.spotData.name}</h1>
       <h2>Forecast</h2>
