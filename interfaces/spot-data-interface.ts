@@ -4,4 +4,5 @@ export default interface SpotData {
   country: string;
   region: string;
   id: string;
+  webcam_urls?: { type: "video" | "picture"; url: string }[];
 }

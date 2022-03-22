@@ -1,8 +1,10 @@
 import { MongoClient } from "mongodb";
 import type { NextPage, GetStaticProps, GetStaticPaths } from "next";
 import Head from "next/head";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import SpotWebcams from "../../components/spot-page/spotWebcams";
 import SurfForecastTable from "../../components/spot-page/surfForecast";
 import SpotData from "../../interfaces/spot-data-interface";
 
@@ -21,6 +23,10 @@ const SurfSpotPage: NextPage<{ spotData: SpotData }> = (props) => {
       <h1>{props.spotData.name}</h1>
       <h2>Forecast</h2>
       <SurfForecastTable spotSlug={props.spotData.slug} />
+      <h2>Webcam</h2>
+      <SpotWebcams spotData={props.spotData} />
+      <h2>Daily reviews</h2>
+      
     </>
   );
 };
@@ -69,6 +75,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
       country: spot.country,
       region: spot.region,
       slug: spot.slug,
+      webcam_urls: spot.webcam_urls ? spot.webcam_urls : null,
     };
   })[0];
 
