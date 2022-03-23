@@ -1,4 +1,5 @@
 @import "../../styles/colors";
+@import "../../styles/mixins";
 
 .main-landing-selectors-container {
   position: relative;
@@ -19,8 +20,7 @@
     margin-top: 30px;
   }
   form.country-region-spot-selector {
-    border: 1px $color-white solid;
-    border-radius: 10px;
+    @include roundedBorder();
     height: 50px;
 
     display: flex;

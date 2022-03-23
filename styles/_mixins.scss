@@ -20,3 +20,8 @@
     background-size: 100% $size;
   }
 }
+
+@mixin roundedBorder {
+  border: 1px $color-white solid;
+  border-radius: 10px;
+}

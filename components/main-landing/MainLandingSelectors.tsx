@@ -96,6 +96,8 @@ const MainLandingSelectors: React.FC<{
       >
         {/* Country */}
         <SelectInput
+          disabled
+          title="Only Spain supported at the moment"
           labelText="Country:"
           selectId="country"
           selectValue={selectedCountry}

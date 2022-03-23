@@ -9,9 +9,9 @@ const SpotWebcams: React.FC<{ spotData: SpotData }> = (props) => {
         {props.spotData.webcam_urls?.length &&
           props.spotData.webcam_urls.map((urlObj) => {
             if (urlObj.type === "picture") {
-              return <img src={urlObj.url} alt="" />;
+              return <img src={urlObj.url} key={urlObj.url} alt="" />;
             } else {
-              return <video src={urlObj.url} />;
+              return <video src={urlObj.url} key={urlObj.url} />;
             }
           })}
       </>

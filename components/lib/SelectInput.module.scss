@@ -1,0 +1,7 @@
+.select-container {
+  select {
+    &:disabled {
+      cursor: not-allowed;
+    }
+  }
+}

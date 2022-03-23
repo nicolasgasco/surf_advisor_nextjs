@@ -1,0 +1,12 @@
+@import "../../styles/colors";
+
+.textarea-container {
+  > * {
+    display: block;
+  }
+  textarea {
+    background-color: transparent;
+    color: $color-white;
+    width: 100%;
+  }
+}
